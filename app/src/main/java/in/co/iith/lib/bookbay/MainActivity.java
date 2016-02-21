@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,8 +53,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void displaySearchResults(View view) {
-        Intent intent = new Intent(this, BookDisplay.java.class);
-        SearchView searchBox = (SearchView) findViewById(R.id.search_view);
-        
+        Intent intent = new Intent(this, BookDisplay.class);
+        EditText searchBox = (EditText) findViewById(R.id.search_view);
+        String searchField = searchBox.getText().toString();
+        intent.putExtra("Test message",searchField);
+        if(intent.resolveActivity(getPackageManager())!=null)
+        {
+            startActivity(intent);
+        }
+
     }
 }

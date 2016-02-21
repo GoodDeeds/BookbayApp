@@ -10,11 +10,17 @@
     android:orientation="vertical"
     tools:context="in.co.iith.lib.bookbay.BookDisplay">
 
-    <TextView
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/search_query_textview"-->
+        <!--android:text="Search : "-->
+        <!--/>-->
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/search_query_textview"
-        android:text="Search : "/>
+        android:id="@+id/books_list_view">
+    </ListView>
 
 
 
