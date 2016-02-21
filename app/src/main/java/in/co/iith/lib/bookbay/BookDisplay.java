@@ -3,12 +3,9 @@ package in.co.iith.lib.bookbay;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,13 +28,16 @@ public class BookDisplay extends AppCompatActivity {
 
     private ArrayAdapter<String> mDisplayBookListAdapter;
 
+    String query_string = "";
+    String message="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_display);
         Intent intent = getIntent();
-        String message = intent.getExtras().getString("Test message");
-        //TextView searchResult = (TextView) findViewById(R.id.search_query_textview);
+        message = intent.getExtras().getString("Test message");
+
         FetchBooks fetchbooks = new FetchBooks();
         fetchbooks.execute(message);
         String emptyArray[]={};
@@ -55,11 +55,12 @@ public class BookDisplay extends AppCompatActivity {
             JSONArray bookList = new JSONArray(bookJSONObject);
             if(bookList.length()==0)
             {
-                String[] resultString = new String[1];
-                resultString[0] = "No results found";
-
+                String[] resultString = new String[0];
+                // resultString[0] = "No results found";
+                query_string = "No books found for query \""+message+"\"";
                 return resultString;
             }
+            query_string = "Search result for query \""+message+"\"";
             String[] resultString = new String[bookList.length()];
             String bookName;
             String courseID;
@@ -157,8 +158,12 @@ public class BookDisplay extends AppCompatActivity {
                 mDisplayBookListAdapter.clear();
                 for (String dayForecastStr : result){
                     mDisplayBookListAdapter.add(dayForecastStr);
+
                 }
+
             }
+            TextView searchResult = (TextView) findViewById(R.id.search_query_textview);
+            searchResult.setText(query_string);
 
         }
 
