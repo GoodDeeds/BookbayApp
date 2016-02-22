@@ -1,16 +1,25 @@
 package in.co.iith.lib.bookbay;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BookDisplay.class);
         EditText searchBox = (EditText) findViewById(R.id.search_view);
         String searchField = searchBox.getText().toString();
+        if(searchField.equals(""))
+        {
+            toastMessage("The search field cannot be blank");
+            return;
+        }
         intent.putExtra("Test message",searchField);
         if(intent.resolveActivity(getPackageManager())!=null)
         {
@@ -63,4 +77,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    private void toastMessage(String string)
+    {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, string,duration);
+        toast.show();
+    }
+
 }
