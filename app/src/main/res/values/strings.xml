@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Bookbay</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_book_details">BookDetails</string>
+    <string name="title_activity_book_details">Book Description</string>
 </resources>

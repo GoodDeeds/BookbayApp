@@ -92,19 +92,18 @@ public class BookDisplay extends AppCompatActivity {
                 query_string = "No books found for query \""+message+"\"";
                 return resultString;
             }
-            query_string = "Search result for query \""+message+"\"";
+            query_string = "Search result for query \""+message+"\""+"\n";
             String[] resultString = new String[bookList.length()];
             String bookName;
             String courseID;
             String bookAuthor;
-
 
             for(int i=0;i<bookList.length();i++) {
                 JSONObject loadedData = bookList.getJSONObject(i);
                 bookName = loadedData.getString("name");
                 courseID = loadedData.getString("course");
                 bookAuthor = loadedData.getString("author");
-                resultString[i] = "Name: " + bookName + "\nCourse: " + courseID + "\nAuthor: " + bookAuthor;
+                resultString[i] = "Name: " + bookName + "\n\nCourse: " + courseID + "\n\nAuthor: " + bookAuthor;
               //  resultString[i] = loadedData.getString("name");
                 Log.v("List of books",resultString[i]);
 
@@ -116,7 +115,7 @@ public class BookDisplay extends AppCompatActivity {
         @Override
         protected String[] doInBackground(String... params) {
             // These two need to be declared outside the try/catch
-// so that they can be closed in the finally block.
+            // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
@@ -134,7 +133,6 @@ public class BookDisplay extends AppCompatActivity {
                         .appendQueryParameter(QUERY_PARAM, params[0])
                         .build();
                 URL url = new URL(builtUri.toString());
-
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();

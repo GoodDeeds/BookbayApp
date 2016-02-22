@@ -23,10 +23,9 @@
         android:id="@+id/book_name_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Book Name Placeholder"
+        android:text=""
         android:textSize="30sp"
         android:textColor="#003300"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         />
     <TextView
@@ -34,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/book_name_view"
-        android:text="Author name placeholder"
+        android:text=""
         android:textSize="20sp"
         android:textColor="#000033"
         android:layout_marginBottom="16dp"/>
@@ -66,7 +65,7 @@
         android:id="@+id/book_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is a placeholder description. The description is used to describe the book"
+        android:text=""
         android:layout_below="@id/imagebutton_layout"
         android:textSize="12sp"/>
 </RelativeLayout>
