@@ -59,7 +59,8 @@
         android:layout_height="wrap_content"
         android:text="Download Book"
         android:textAllCaps="true"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:onClick="download"/>
     </LinearLayout>
     <TextView
         android:id="@+id/book_description"
