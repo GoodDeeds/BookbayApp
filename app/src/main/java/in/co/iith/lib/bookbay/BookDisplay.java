@@ -1,14 +1,24 @@
 package in.co.iith.lib.bookbay;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +40,7 @@ public class BookDisplay extends AppCompatActivity {
 
     String query_string = "";
     String message="";
+    JSONArray bookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +52,39 @@ public class BookDisplay extends AppCompatActivity {
         FetchBooks fetchbooks = new FetchBooks();
         fetchbooks.execute(message);
         String emptyArray[]={};
-        List<String> listOfBooks = new ArrayList<String>(
+        final List<String> listOfBooks = new ArrayList<String>(
                 Arrays.asList(emptyArray));
         mDisplayBookListAdapter = new ArrayAdapter<String>(
                 this,R.layout.book_list_text_view, R.id.book_list_text_view_text_view,listOfBooks);
         ListView listview = (ListView) this.findViewById(R.id.books_list_view);
         listview.setAdapter(mDisplayBookListAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    String strid = bookList.getJSONObject(position).getString("id");
+                   // Toast.makeText(getApplicationContext(), strid, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), BookDetails.class);
+                    intent.putExtra("Sending id",strid);
+                    if(intent.resolveActivity(getPackageManager())!=null)
+                    {
+                        startActivity(intent);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        });
     }
 
     public class FetchBooks extends AsyncTask<String, Void, String[]> {
 
         public String[] getBookDataFromJSON(String bookJSONObject) throws JSONException {
-            JSONArray bookList = new JSONArray(bookJSONObject);
+            bookList = new JSONArray(bookJSONObject);
             if(bookList.length()==0)
             {
                 String[] resultString = new String[0];
@@ -168,4 +200,37 @@ public class BookDisplay extends AppCompatActivity {
         }
 
     }
+
+
+    /*public void onClick(View v) {
+        startActivity(new Intent(this, IndexActivity.class));
+        finish();
+
+    }*/
+
+//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//        ImageView bmImage;
+//
+//        public DownloadImageTask(ImageView bmImage) {
+//            this.bmImage = bmImage;
+//        }
+//
+//        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return mIcon11;
+//        }
+//
+//        protected void onPostExecute(Bitmap result) {
+//            bmImage.setImageBitmap(result);
+//        }
+//    }
+
 }
